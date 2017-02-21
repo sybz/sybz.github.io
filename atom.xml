@@ -1,62 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title><![CDATA[三月不知]]></title>
-  
+  <subtitle><![CDATA[我们都是星尘！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.sybzrw.com/"/>
-  <updated>2016-04-24T05:12:42.000Z</updated>
+  <updated>2017-02-21T16:42:46.000Z</updated>
   <id>http://www.sybzrw.com/</id>
   
   <author>
-    <name><![CDATA[Wang_xin]]></name>
+    <name><![CDATA[wang xin]]></name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[Hexo+Github Page 搭建个人博客（1）]]></title>
-    <link href="http://www.sybzrw.com/2016/04/24/HEXO-Github-Page-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%881%EF%BC%89/"/>
-    <id>http://www.sybzrw.com/2016/04/24/HEXO-Github-Page-搭建个人博客（1）/</id>
-    <published>2016-04-24T03:31:40.000Z</published>
-    <updated>2016-04-24T05:12:42.000Z</updated>
-    <content type="html"><![CDATA[<p>###前言</p>
+    <title><![CDATA[如何在iOS App的图标上显示版本信息]]></title>
+    <link href="http://www.sybzrw.com/2017/02/21/%E5%A6%82%E4%BD%95%E5%9C%A8iOS-App%E7%9A%84%E5%9B%BE%E6%A0%87%E4%B8%8A%E6%98%BE%E7%A4%BA%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF/"/>
+    <id>http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/</id>
+    <published>2017-02-21T13:13:32.000Z</published>
+    <updated>2017-02-21T16:42:46.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://7xtbg5.com2.z0.glb.clouddn.com/backlight%20shooting_0_small.jpg" alt=""></p>
+<p>##作用<br>在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。<strong>对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。</strong></p>
+<p>##来源<br>最早想到方法的人应该是国外的一个大神，文章链接在这<a href="http://merowing.info/2013/03/overlaying-application-version-on-top-of-your-icon/" target="_blank" rel="external">Overlaying application version on top of your icon</a><br>同时作者给出了Demo<a href="https://github.com/krzysztofzablocki/IconOverlaying" target="_blank" rel="external">下载地址</a><br>本文大部分是参照这篇bolg来写的，加上一些自己的理解以及对源代码中脚本的分析</p>
+<p>##效果<br><img src="http://7xtbg5.com1.z0.glb.clouddn.com/IMG_0586.PNG" alt=""></p>
+<p>##实现<br>对一个没有接触过这方面技术的人来说，对照效果图我们来大致猜测一下这个的实现流程。首先是怎样取到你想要展示的信息(例如Vesion，bulid版本),然后就是是如何把文字写到图片上，最后是把带有信息的图片与app Icon进行合成。这几个过程缺一不可，以下内容将对这些技术进行讲解。  </p>
+<p>###1. 使用<a href="http://www.jianshu.com/p/2167f755c47e" target="_blank" rel="external">PlistBuddy</a>工具，获取version,build信息<br>.plist文件是Mac种非常普遍的一种文件格式，类似xml，通过键值对的方式来进行一些配置。而PlistBuddy则是Mac自带的专门解析plist的小工具，由于PlistBuddy并不在Mac默认的Path里，所以我们得通过绝对路径来引用这个工具,在终端（Terminal）输入以下命令可查看帮助  </p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗  /usr/libexec/PlistBuddy --<span class="keyword">help</span></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">提取<span class="keyword">App</span>的Info.plist中的<span class="keyword">Version</span>信息可以使用以下命令</span><br></pre></td></tr></table></figure>
+<p>➜  ✗ /usr/libexec/PlistBuddy -c “Print CFBundleShortVersionString” Info.plist路径<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">提取App的<span class="preprocessor">Info</span>.plist中的<span class="keyword">build信息可以使用以下命令</span></span><br></pre></td></tr></table></figure></p>
+<p>➜  ✗ /usr/libexec/PlistBuddy -c “Print CFBundleVersion” Info.plist路径<br>```  </p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>###前言</p>
-]]>
+    <![CDATA[<p><img src="http://7xtbg5.com2.z0.glb.clouddn.com/backlight%20shooting_0_small.jpg" alt=""></p>
+<p>##作用<br>在iOS App的图标上显示版本信息，测试人员在测试多版本的时候]]>
     </summary>
     
-      <category term="Github" scheme="http://www.sybzrw.com/tags/Github/"/>
-    
-      <category term="Hexo" scheme="http://www.sybzrw.com/tags/Hexo/"/>
-    
-      <category term="Hexo+Github Page 搭建个人博客" scheme="http://www.sybzrw.com/categories/Hexo-Github-Page-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <link href="http://www.sybzrw.com/2016/01/27/Hello-Blog/"/>
-    <id>http://www.sybzrw.com/2016/01/27/Hello-Blog/</id>
-    <published>2016-01-27T06:19:38.000Z</published>
-    <updated>2016-01-27T11:31:59.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="Hello_Blog"><a href="#Hello_Blog" class="headerlink" title="Hello Blog"></a>Hello Blog</h3><p>作为程序员，第一篇当然要以程序员的经典开始啦。</p>
-<h3 id="u535A_u5BA2_u5730_u5740_u7684_u542B_u4E49"><a href="#u535A_u5BA2_u5730_u5740_u7684_u542B_u4E49" class="headerlink" title="博客地址的含义"></a>博客地址的含义</h3><p>博客地址<a href="http://www.sybzrw.com/">www.sybzrw.com</a>，语出典故“三月不知肉味”，比喻集中注意力于某一事物而忘记了其他事情。</p>
-<blockquote>
-<p>《论语·述而》:”子在齐闻《韶》，三月不知肉味，曰:’不图为乐之至于斯也。’”朱熹集注:“盖心一于是，而不及乎他也。”</p>
-</blockquote>
-<p>犹记得好多年前第一个QQ号，用的昵称就是“三月不知”。那时候在读初中（应该是2002年），一星期才一节电脑课，一到上课时间都跑得像疯狗一样去电脑教室。如今，时过境迁，我读书的中学已然成为一片废墟</p>
-<p><img src="http://7xqdxp.com1.z0.glb.clouddn.com/IMG_3158.JPG" alt=""></p>
-<p>如果不是看到那台挖掘机后面墙上的那幅画，我都会怀疑我初中三年是不是一个梦…</p>
-<p>不过这片废墟之上马上要新建一片市里最大的商业区了，相信以后会更繁华的。从这篇blog开始也算是我的新起点，写博客的目的在于记录和分享一些东西，帮助自己成长，如果可以帮到别人就更好了！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="Hello_Blog"><a href="#Hello_Blog" class="headerlink" title="Hello Blog"></a>Hello Blog</h3><p>作为程序员，第一篇当然要以程序员的经典开始啦。</p>
-<h3 id="u5]]>
-    </summary>
-    
-      <category term="Hello" scheme="http://www.sybzrw.com/tags/Hello/"/>
+      <category term="iOS" scheme="http://www.sybzrw.com/tags/iOS/"/>
     
   </entry>
   

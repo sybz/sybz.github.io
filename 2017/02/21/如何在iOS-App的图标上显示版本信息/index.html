@@ -3,34 +3,22 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Hello Blog | 三月不知</title>
+    <title>如何在iOS App的图标上显示版本信息 | 三月不知</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Hello Blog作为程序员，第一篇当然要以程序员的经典开始啦。
-博客地址的含义博客地址www.sybzrw.com，语出典故“三月不知肉味”，比喻集中注意力于某一事物而忘记了其他事情。
-
-《论语·述而》:”子在齐闻《韶》，三月不知肉味，曰:’不图为乐之至于斯也。’”朱熹集注:“盖心一于是，而不及乎他也。”
-
-犹记得好多年前第一个QQ号，用的昵称就是“三月不知”。那时候在读初中（应该是2002年">
+    <meta name="description" content="##作用在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。
+##来源最早想到方法的人应">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello Blog">
-<meta property="og:url" content="http://www.sybzrw.com/2016/01/27/Hello-Blog/index.html">
+<meta property="og:title" content="如何在iOS App的图标上显示版本信息">
+<meta property="og:url" content="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/index.html">
 <meta property="og:site_name" content="三月不知">
-<meta property="og:description" content="Hello Blog作为程序员，第一篇当然要以程序员的经典开始啦。
-博客地址的含义博客地址www.sybzrw.com，语出典故“三月不知肉味”，比喻集中注意力于某一事物而忘记了其他事情。
-
-《论语·述而》:”子在齐闻《韶》，三月不知肉味，曰:’不图为乐之至于斯也。’”朱熹集注:“盖心一于是，而不及乎他也。”
-
-犹记得好多年前第一个QQ号，用的昵称就是“三月不知”。那时候在读初中（应该是2002年">
-<meta property="og:image" content="http://7xqdxp.com1.z0.glb.clouddn.com/IMG_3158.JPG">
-<meta property="og:updated_time" content="2016-01-27T11:31:59.000Z">
+<meta property="og:description" content="##作用在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。
+##来源最早想到方法的人应">
+<meta property="og:image" content="http://7xtbg5.com2.z0.glb.clouddn.com/backlight%20shooting_0_small.jpg">
+<meta property="og:updated_time" content="2017-02-21T16:42:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello Blog">
-<meta name="twitter:description" content="Hello Blog作为程序员，第一篇当然要以程序员的经典开始啦。
-博客地址的含义博客地址www.sybzrw.com，语出典故“三月不知肉味”，比喻集中注意力于某一事物而忘记了其他事情。
-
-《论语·述而》:”子在齐闻《韶》，三月不知肉味，曰:’不图为乐之至于斯也。’”朱熹集注:“盖心一于是，而不及乎他也。”
-
-犹记得好多年前第一个QQ号，用的昵称就是“三月不知”。那时候在读初中（应该是2002年">
+<meta name="twitter:title" content="如何在iOS App的图标上显示版本信息">
+<meta name="twitter:description" content="##作用在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。
+##来源最早想到方法的人应">
     
 
     
@@ -166,18 +154,18 @@ var _hmt = _hmt || [];
     <div class="inner profile-inner">
         <div class="base-info profile-block">
             <img id="avatar" src="http://7xtbg5.com2.z0.glb.clouddn.com/avatar_small.jpg" />
-            <h2 id="name">Wang_xin</h2>
+            <h2 id="name">wang xin</h2>
             <h3 id="title">iOS Developer</h3>
             <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
             <a id="follow" target="_blank" href="https://github.com/sybz">关注我</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                2
+                1
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                3
+                1
                 <span>标签</span>
             </div>
         </div>
@@ -202,7 +190,7 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-Hello-Blog" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-如何在iOS-App的图标上显示版本信息" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -211,7 +199,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            Hello Blog
+            如何在iOS App的图标上显示版本信息
         </h1>
     
 
@@ -219,8 +207,8 @@ var _hmt = _hmt || [];
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/01/27/Hello-Blog/">
-            <time datetime="2016-01-27T06:19:38.000Z" itemprop="datePublished">2016-01-27</time>
+        <a href="/2017/02/21/如何在iOS-App的图标上显示版本信息/">
+            <time datetime="2017-02-21T13:13:32.000Z" itemprop="datePublished">2017-02-21</time>
         </a>
     </div>
 
@@ -229,7 +217,7 @@ var _hmt = _hmt || [];
                     
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Hello/">Hello</a>
+        <a class="tag-link" href="/tags/iOS/">iOS</a>
     </div>
 
                 </div>
@@ -238,15 +226,15 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h3 id="Hello_Blog"><a href="#Hello_Blog" class="headerlink" title="Hello Blog"></a>Hello Blog</h3><p>作为程序员，第一篇当然要以程序员的经典开始啦。</p>
-<h3 id="u535A_u5BA2_u5730_u5740_u7684_u542B_u4E49"><a href="#u535A_u5BA2_u5730_u5740_u7684_u542B_u4E49" class="headerlink" title="博客地址的含义"></a>博客地址的含义</h3><p>博客地址<a href="http://www.sybzrw.com/">www.sybzrw.com</a>，语出典故“三月不知肉味”，比喻集中注意力于某一事物而忘记了其他事情。</p>
-<blockquote>
-<p>《论语·述而》:”子在齐闻《韶》，三月不知肉味，曰:’不图为乐之至于斯也。’”朱熹集注:“盖心一于是，而不及乎他也。”</p>
-</blockquote>
-<p>犹记得好多年前第一个QQ号，用的昵称就是“三月不知”。那时候在读初中（应该是2002年），一星期才一节电脑课，一到上课时间都跑得像疯狗一样去电脑教室。如今，时过境迁，我读书的中学已然成为一片废墟</p>
-<p><img src="http://7xqdxp.com1.z0.glb.clouddn.com/IMG_3158.JPG" alt=""></p>
-<p>如果不是看到那台挖掘机后面墙上的那幅画，我都会怀疑我初中三年是不是一个梦…</p>
-<p>不过这片废墟之上马上要新建一片市里最大的商业区了，相信以后会更繁华的。从这篇blog开始也算是我的新起点，写博客的目的在于记录和分享一些东西，帮助自己成长，如果可以帮到别人就更好了！</p>
+            <p><img src="http://7xtbg5.com2.z0.glb.clouddn.com/backlight%20shooting_0_small.jpg" alt=""></p>
+<p>##作用<br>在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。<strong>对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。</strong></p>
+<p>##来源<br>最早想到方法的人应该是国外的一个大神，文章链接在这<a href="http://merowing.info/2013/03/overlaying-application-version-on-top-of-your-icon/" target="_blank" rel="external">Overlaying application version on top of your icon</a><br>同时作者给出了Demo<a href="https://github.com/krzysztofzablocki/IconOverlaying" target="_blank" rel="external">下载地址</a><br>本文大部分是参照这篇bolg来写的，加上一些自己的理解以及对源代码中脚本的分析</p>
+<p>##效果<br><img src="http://7xtbg5.com1.z0.glb.clouddn.com/IMG_0586.PNG" alt=""></p>
+<p>##实现<br>对一个没有接触过这方面技术的人来说，对照效果图我们来大致猜测一下这个的实现流程。首先是怎样取到你想要展示的信息(例如Vesion，bulid版本),然后就是是如何把文字写到图片上，最后是把带有信息的图片与app Icon进行合成。这几个过程缺一不可，以下内容将对这些技术进行讲解。  </p>
+<p>###1. 使用<a href="http://www.jianshu.com/p/2167f755c47e" target="_blank" rel="external">PlistBuddy</a>工具，获取version,build信息<br>.plist文件是Mac种非常普遍的一种文件格式，类似xml，通过键值对的方式来进行一些配置。而PlistBuddy则是Mac自带的专门解析plist的小工具，由于PlistBuddy并不在Mac默认的Path里，所以我们得通过绝对路径来引用这个工具,在终端（Terminal）输入以下命令可查看帮助  </p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗  /usr/libexec/PlistBuddy --<span class="keyword">help</span></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">提取<span class="keyword">App</span>的Info.plist中的<span class="keyword">Version</span>信息可以使用以下命令</span><br></pre></td></tr></table></figure>
+<p>➜  ✗ /usr/libexec/PlistBuddy -c “Print CFBundleShortVersionString” Info.plist路径<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">提取App的<span class="preprocessor">Info</span>.plist中的<span class="keyword">build信息可以使用以下命令</span></span><br></pre></td></tr></table></figure></p>
+<p>➜  ✗ /usr/libexec/PlistBuddy -c “Print CFBundleVersion” Info.plist路径<br>```  </p>
 
         
         </div>
@@ -310,27 +298,13 @@ var _hmt = _hmt || [];
 
             
     
-        <a href="http://www.sybzrw.com/2016/01/27/Hello-Blog/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://www.sybzrw.com/2016/01/27/Hello-Blog/">评论</a>
+        <a href="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/">评论</a>
     
 
         </footer>
     </div>
     
         
-<nav id="article-nav">
-    
-        <a href="/2016/04/24/HEXO-Github-Page-搭建个人博客（1）/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    Hexo+Github Page 搭建个人博客（1）
-                
-            </div>
-        </a>
-    
-    
-</nav>
-
 
     
 </article>
@@ -340,7 +314,7 @@ var _hmt = _hmt || [];
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2016/01/27/Hello-Blog/" data-title="Hello Blog" data-url="http://www.sybzrw.com/2016/01/27/Hello-Blog/"></div>
+    <div class="ds-thread" data-thread-key="2017/02/21/如何在iOS-App的图标上显示版本信息/" data-title="如何在iOS App的图标上显示版本信息" data-url="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
@@ -395,29 +369,10 @@ var _hmt = _hmt || [];
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2016/04/24/HEXO-Github-Page-搭建个人博客（1）/" class="thumbnail">
+                            <a href="/2017/02/21/如何在iOS-App的图标上显示版本信息/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Hexo-Github-Page-搭建个人博客/">Hexo+Github Page 搭建个人博客</a></p>
-                            <p class="item-title"><a href="/2016/04/24/HEXO-Github-Page-搭建个人博客（1）/" class="title">Hexo+Github Page 搭建个人博客（1）</a></p>
-                            <p class="item-date"><time datetime="2016-04-24T03:31:40.000Z" itemprop="datePublished">2016-04-24</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/01/27/Hello-Blog/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://7xqdxp.com1.z0.glb.clouddn.com/IMG_3158.JPG)" alt="Hello Blog" class="thumbnail-image"></span>
+        <span style="background-image:url(http://7xtbg5.com2.z0.glb.clouddn.com/backlight%20shooting_0_small.jpg)" alt="如何在iOS App的图标上显示版本信息" class="thumbnail-image"></span>
     
 </a>
 
@@ -425,8 +380,8 @@ var _hmt = _hmt || [];
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/01/27/Hello-Blog/" class="title">Hello Blog</a></p>
-                            <p class="item-date"><time datetime="2016-01-27T06:19:38.000Z" itemprop="datePublished">2016-01-27</time></p>
+                            <p class="item-title"><a href="/2017/02/21/如何在iOS-App的图标上显示版本信息/" class="title">如何在iOS App的图标上显示版本信息</a></p>
+                            <p class="item-date"><time datetime="2017-02-21T13:13:32.000Z" itemprop="datePublished">2017-02-21</time></p>
                         </div>
                     </li>
                 
@@ -436,19 +391,12 @@ var _hmt = _hmt || [];
 
     
         
-    <div class="widget-wrap">
-        <h3 class="widget-title">分类</h3>
-        <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo-Github-Page-搭建个人博客/">Hexo+Github Page 搭建个人博客</a><span class="category-list-count">1</span></li></ul>
-        </div>
-    </div>
-
     
         
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -457,7 +405,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hello/">Hello</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -466,7 +414,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hello/" style="font-size: 10px;">Hello</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a>
+            <a href="/tags/iOS/" style="font-size: 10px;">iOS</a>
         </div>
     </div>
 
@@ -494,7 +442,7 @@ var _hmt = _hmt || [];
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2016 Wang_xin<br>
+            &copy; 2017 wang xin<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
     </div>
