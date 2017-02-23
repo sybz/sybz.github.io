@@ -1,478 +1,814 @@
-<!DOCTYPE html>
-<html lang=zh>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-    <meta charset="utf-8">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
     
-    <title>如何在iOS App的图标上显示版本信息 | 三月不知</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="作用在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。
-来源最早想到方法的人应该是国外">
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="三月不知" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="作用在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。
+来源最早想到方法的人应该是国">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何在iOS App的图标上显示版本信息">
 <meta property="og:url" content="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/index.html">
 <meta property="og:site_name" content="三月不知">
 <meta property="og:description" content="作用在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。
-来源最早想到方法的人应该是国外">
-<meta property="og:image" content="http://7xtbg5.com2.z0.glb.clouddn.com/backlight%20shooting_0_small.jpg">
-<meta property="og:updated_time" content="2017-02-21T16:54:04.000Z">
+来源最早想到方法的人应该是国">
+<meta property="og:image" content="http://7xtbg5.com1.z0.glb.clouddn.com/blog0_pic0.jpg">
+<meta property="og:image" content="http://7xtbg5.com1.z0.glb.clouddn.com/blog0_pic_1.PNG">
+<meta property="og:image" content="http://7xtbg5.com1.z0.glb.clouddn.com/blog0_pic2.png">
+<meta property="og:updated_time" content="2017-02-23T17:40:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何在iOS App的图标上显示版本信息">
 <meta name="twitter:description" content="作用在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。
-来源最早想到方法的人应该是国外">
-    
+来源最早想到方法的人应该是国">
+<meta name="twitter:image" content="http://7xtbg5.com1.z0.glb.clouddn.com/blog0_pic0.jpg">
 
-    
 
-    
 
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/vendor/open-sans/styles.css" type="text/css">
-    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css" type="text/css">
-
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-
-    <script src="/vendor/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
-    
-    
-        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css" type="text/css">
-    
-    
-    
-    
-        <script>
-var _hmt = _hmt || [];
-(function() {
-    var hm = document.createElement("script");
-    hm.src = "//hm.baidu.com/hm.js?5635eb7290c8d6615ea3cecea15a5982";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '816e678d5e891b974dd5768101be630d',
+      indexName: 'sybzrw',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
 </script>
 
-    
 
+
+  <link rel="canonical" href="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/"/>
+
+
+
+
+
+  <title> 如何在iOS App的图标上显示版本信息 | 三月不知 </title>
 </head>
-<body>
-    <div id="container">
-        <header id="header">
-    <div id="header-main" class="header-inner">
-        <div class="outer">
-            <a href="/" id="logo">
-                <i class="logo"></i>
-                <span class="site-title">三月不知</span>
-            </a>
-            <nav id="main-nav">
-                
-                    <a class="main-nav-link" href="/.">Home</a>
-                
-                    <a class="main-nav-link" href="/archives">Archives</a>
-                
-                    <a class="main-nav-link" href="/categories">Categories</a>
-                
-                    <a class="main-nav-link" href="/tags">Tags</a>
-                
-            </nav>
-            
-                
-                <nav id="sub-nav">
-                    <div class="profile" id="profile-nav">
-                        <a id="profile-anchor" href="javascript:;">
-                            <img class="avatar" src="http://7xtbg5.com2.z0.glb.clouddn.com/avatar_small.jpg" />
-                            <i class="fa fa-caret-down"></i>
-                        </a>
-                    </div>
-                </nav>
-            
-            <div id="search-form-wrap">
 
-    <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
-        <button type="submit" class="search-form-submit"></button>
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(未命名)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-<script src="/js/insight.js" type="text/javascript"></script>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-</div>
-        </div>
-    </div>
-    <div id="main-nav-mobile" class="header-sub header-inner">
-        <table class="menu outer">
-            <tr>
-                
-                    <td><a class="main-nav-link" href="/.">Home</a></td>
-                
-                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
-                
-                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
-                
-                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
-                
-                <td>
-                    
-    <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
-    </div>
+  
 
-                </td>
-            </tr>
-        </table>
-    </div>
-</header>
 
-        <div class="outer">
-            
-                
 
-<aside id="profile">
-    <div class="inner profile-inner">
-        <div class="base-info profile-block">
-            <img id="avatar" src="http://7xtbg5.com2.z0.glb.clouddn.com/avatar_small.jpg" />
-            <h2 id="name">wang xin</h2>
-            <h3 id="title">iOS Developer</h3>
-            <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
-            <a id="follow" target="_blank" href="https://github.com/sybz">关注我</a>
-        </div>
-        <div class="article-info profile-block">
-            <div class="article-info-block">
-                1
-                <span>文章</span>
-            </div>
-            <div class="article-info-block">
-                1
-                <span>标签</span>
-            </div>
-        </div>
-        
-        <div class="profile-block social-links">
-            <table>
-                <tr>
-                    
-                    <td><a href="https://github.com/sybz" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
-                    
-                    <td><a href="https://www.instagram.com/wangxin1226/" target="_blank" title="instagram"><i class="fa fa-instagram"></i></a></td>
-                    
-                    <td><a href="http://music.163.com/#/user/home?id=34885652" target="_blank" title="music"><i class="fa fa-music"></i></a></td>
-                    
-                    <td><a href="/atom.xml" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
-                    
-                </tr>
-            </table>
-        </div>
-        
-    </div>
-</aside>
 
-            
-            <section id="main"><article id="post-如何在iOS-App的图标上显示版本信息" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-        
-            <header class="article-header">
-                
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5635eb7290c8d6615ea3cecea15a5982";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
     
-        <h1 class="article-title" itemprop="name">
-            如何在iOS App的图标上显示版本信息
-        </h1>
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
     
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/02/21/如何在iOS-App的图标上显示版本信息/">
-            <time datetime="2017-02-21T13:13:32.000Z" itemprop="datePublished">2017-02-21</time>
-        </a>
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">三月不知</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
+      
+        <p class="site-subtitle">我们都是星尘！</p>
+      
+  </div>
 
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/iOS/">iOS</a>
-    </div>
+<nav class="site-nav">
+  
 
-                </div>
-            </header>
+  
+    <ul id="menu" class="menu">
+      
         
-        <div class="article-entry" itemprop="articleBody">
-        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
-            <p><img src="http://7xtbg5.com2.z0.glb.clouddn.com/backlight%20shooting_0_small.jpg" alt=""></p>
-<h2 id="u4F5C_u7528"><a href="#u4F5C_u7528" class="headerlink" title="作用"></a>作用</h2><p>在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。<strong>对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。</strong></p>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="wang xin">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xtbg5.com2.z0.glb.clouddn.com/avatar_small.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="三月不知">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="三月不知" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                如何在iOS App的图标上显示版本信息
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T21:13:32+08:00">
+                2017-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/21/如何在iOS-App的图标上显示版本信息/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/21/如何在iOS-App的图标上显示版本信息/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xtbg5.com1.z0.glb.clouddn.com/blog0_pic0.jpg" alt=""></p>
+<h2 id="u4F5C_u7528"><a href="#u4F5C_u7528" class="headerlink" title="作用"></a>作用</h2><p>在iOS App的图标上显示版本信息，测试人员在测试多版本的时候，可以直接从桌面icon上看到当前测试的版本，无需再到App内或者TestFlight中去看测试机使用的哪个版本，可以极大的提升效率。不仅限于版本信息，同时还可以显示git分支，commit id等。<strong><em>对于开发者来说，理解这一过程可以加深对Xcode编译过程的理解，同时也可以学到一些shell的知识。</em></strong></p>
 <h2 id="u6765_u6E90"><a href="#u6765_u6E90" class="headerlink" title="来源"></a>来源</h2><p>最早想到方法的人应该是国外的一个大神，文章链接在这<a href="http://merowing.info/2013/03/overlaying-application-version-on-top-of-your-icon/" target="_blank" rel="external">Overlaying application version on top of your icon</a><br>同时作者给出了Demo<a href="https://github.com/krzysztofzablocki/IconOverlaying" target="_blank" rel="external">下载地址</a><br>本文大部分是参照这篇bolg来写的，加上一些自己的理解以及对源代码中脚本的分析</p>
-<h2 id="u6548_u679C"><a href="#u6548_u679C" class="headerlink" title="效果"></a>效果</h2><p><img src="http://7xtbg5.com1.z0.glb.clouddn.com/IMG_0586.PNG" alt=""></p>
+<h2 id="u6548_u679C"><a href="#u6548_u679C" class="headerlink" title="效果"></a>效果</h2><p><img src="http://7xtbg5.com1.z0.glb.clouddn.com/blog0_pic_1.PNG" alt=""></p>
 <h2 id="u5B9E_u73B0"><a href="#u5B9E_u73B0" class="headerlink" title="实现"></a>实现</h2><p>对一个没有接触过这方面技术的人来说，对照效果图我们来大致猜测一下这个的实现流程。首先是怎样取到你想要展示的信息(例如Vesion，bulid版本),然后就是是如何把文字写到图片上，最后是把带有信息的图片与app Icon进行合成。这几个过程缺一不可，以下内容将对这些技术进行讲解。  </p>
 <h3 id="1-__u4F7F_u7528PlistBuddy_u5DE5_u5177_uFF0C_u83B7_u53D6version_2Cbuild_u4FE1_u606F"><a href="#1-__u4F7F_u7528PlistBuddy_u5DE5_u5177_uFF0C_u83B7_u53D6version_2Cbuild_u4FE1_u606F" class="headerlink" title="1. 使用PlistBuddy工具，获取version,build信息"></a>1. 使用<a href="http://www.jianshu.com/p/2167f755c47e" target="_blank" rel="external">PlistBuddy</a>工具，获取version,build信息</h3><p>.plist文件是Mac种非常普遍的一种文件格式，类似xml，通过键值对的方式来进行一些配置。而PlistBuddy则是Mac自带的专门解析plist的小工具，由于PlistBuddy并不在Mac默认的Path里，所以我们得通过绝对路径来引用这个工具,在终端（Terminal）输入以下命令可查看帮助  </p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗  /usr/libexec/PlistBuddy <span class="comment">--help</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ✗  /usr/libexec/PlistBuddy <span class="comment">--help</span></div></pre></td></tr></table></figure>
 <p>提取App的Info.plist中的Version信息可以使用以下命令   </p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗ /usr/libexec/PlistBuddy -c <span class="string">"Print CFBundleShortVersionString"</span> <span class="preprocessor">Info</span>.plist路径</span><br></pre></td></tr></table></figure>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ✗ /usr/libexec/PlistBuddy -c <span class="string">"Print CFBundleShortVersionString"</span> <span class="meta">Info</span>.plist路径</div></pre></td></tr></table></figure>
 <p>提取App的Info.plist中的build信息可以使用以下命令  </p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗ /usr/libexec/PlistBuddy -c <span class="string">"Print CFBundleVersion"</span> <span class="preprocessor">Info</span>.plist路径</span><br></pre></td></tr></table></figure>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ✗ /usr/libexec/PlistBuddy -c <span class="string">"Print CFBundleVersion"</span> <span class="meta">Info</span>.plist路径</div></pre></td></tr></table></figure>
+<h3 id="2-_git_u547D_u4EE4_u83B7_u53D6_u5206_u652F_u4FE1_u606F_u548Ccommit_id"><a href="#2-_git_u547D_u4EE4_u83B7_u53D6_u5206_u652F_u4FE1_u606F_u548Ccommit_id" class="headerlink" title="2. git命令获取分支信息和commit id"></a>2. git命令获取分支信息和commit id</h3><p>获取分支  </p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">rev</span>-<span class="built_in">parse</span> --abbrev-ref HEAD</div></pre></td></tr></table></figure>
+<p>获取commit id  </p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">rev</span>-<span class="built_in">parse</span> --short HEAD</div></pre></td></tr></table></figure>
+<h3 id="3-_u4F7F_u7528ImageMagick_u5C06_u7248_u672C_u4FE1_u606F_u586B_u5145_u5230_u56FE_u6807_u4E0A"><a href="#3-_u4F7F_u7528ImageMagick_u5C06_u7248_u672C_u4FE1_u606F_u586B_u5145_u5230_u56FE_u6807_u4E0A" class="headerlink" title="3.使用ImageMagick将版本信息填充到图标上"></a>3.使用<a href="https://www.imagemagick.org/script/index.php" target="_blank" rel="external">ImageMagick</a>将版本信息填充到图标上</h3><p>这里实际上需要安装2个工具：ImageMagick和ghostscript。最好是先安装ghostscript，因为ImageMagick要用到它，有点类似CocoaPods的依赖关系（s.dependency)，但是这里不会自动安装，需要我们手动操作，使用<a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a>运行以下两个命令：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ✗ <span class="keyword">brew </span><span class="keyword">install </span>ghostscript </div><div class="line">➜  ✗ <span class="keyword">brew </span><span class="keyword">install </span>imagemagick</div></pre></td></tr></table></figure>
+<p>安装好后，通过ImageMagicK的convert功能把文字写到图片上,示例：在Icon-76.png上，创建一个背景色为蓝色，透明度为80%的颜色’#0098’，这种颜色表示法有点像我们平常见到的rgba色值，<strong><em>不过rgb取值不再是0~255，而是0~9，</em></strong>我们可以根据喜好设置不同的背景色。接着指定大小，长为76，高为30的矩形。然后用白色字体把“NextStep”居中写到矩形中。这里字体颜色也可以用前面那种颜色表示，例如想让字体为红色可以将‘white’替换成’#9008’。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">convert -<span class="attribute">background</span> <span class="string">'#0098'</span> -fill white -gravity center -size <span class="number">76</span>x30  \  </div><div class="line"><span class="selector-tag">caption</span>:<span class="string">"NextStep"</span>   ./Icon-<span class="number">76</span><span class="selector-class">.png</span>  \</div><div class="line">+swap -gravity south -composite ./convert.png</div></pre></td></tr></table></figure>
+<p>最终可以达到的效果：  </p>
+<p><img src="http://7xtbg5.com1.z0.glb.clouddn.com/blog0_pic2.png" alt="">  </p>
+<h2 id="u5982_u4F55_u6574_u5408_u8FDBXcode_uFF0C_u5B9E_u73B0_u7F16_u8BD1_u7684_u65F6_u5019_u52A8_u6001_u4FEE_u6539icon"><a href="#u5982_u4F55_u6574_u5408_u8FDBXcode_uFF0C_u5B9E_u73B0_u7F16_u8BD1_u7684_u65F6_u5019_u52A8_u6001_u4FEE_u6539icon" class="headerlink" title="如何整合进Xcode，实现编译的时候动态修改icon"></a>如何整合进Xcode，实现编译的时候动态修改icon</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/sh</span></div><div class="line"><span class="built_in">export</span> PATH=/opt/<span class="built_in">local</span>/bin/:/opt/<span class="built_in">local</span>/sbin:<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/bin:</div><div class="line"></div><div class="line">convertPath=`<span class="built_in">which</span> convert`</div><div class="line">gsPath=`<span class="built_in">which</span> gs`</div><div class="line"></div><div class="line"><span class="keyword">if</span> [[ ! <span class="_">-f</span> <span class="variable">$&#123;convertPath&#125;</span> || -z <span class="variable">$&#123;convertPath&#125;</span> ]]; <span class="keyword">then</span></div><div class="line">  convertValidation=<span class="literal">true</span>;</div><div class="line"><span class="keyword">else</span></div><div class="line">  convertValidation=<span class="literal">false</span>;</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [[ ! <span class="_">-f</span> <span class="variable">$&#123;gsPath&#125;</span> || -z <span class="variable">$&#123;gsPath&#125;</span> ]]; <span class="keyword">then</span></div><div class="line">  gsValidation=<span class="literal">true</span>;</div><div class="line"><span class="keyword">else</span></div><div class="line">  gsValidation=<span class="literal">false</span>;</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$convertValidation</span>"</span> = <span class="literal">true</span> || <span class="string">"<span class="variable">$gsValidation</span>"</span> = <span class="literal">true</span> ]]; <span class="keyword">then</span></div><div class="line">  <span class="built_in">echo</span> <span class="string">"WARNING: Skipping Icon versioning, you need to install ImageMagick and ghostscript (fonts) first, you can use brew to simplify process:"</span></div><div class="line"></div><div class="line">  <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$convertValidation</span>"</span> = <span class="literal">true</span> ]]; <span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"brew install imagemagick"</span></div><div class="line">  <span class="keyword">fi</span></div><div class="line">  <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$gsValidation</span>"</span> = <span class="literal">true</span> ]]; <span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"brew install ghostscript"</span></div><div class="line">  <span class="keyword">fi</span></div><div class="line"><span class="built_in">exit</span> 0;</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">version=`/usr/libexec/PlistBuddy -c <span class="string">"Print CFBundleShortVersionString"</span> <span class="string">"<span class="variable">$&#123;CONFIGURATION_BUILD_DIR&#125;</span>/<span class="variable">$&#123;INFOPLIST_PATH&#125;</span>"</span>`</div><div class="line">build_num=`/usr/libexec/PlistBuddy -c <span class="string">"Print CFBundleVersion"</span> <span class="string">"<span class="variable">$&#123;CONFIGURATION_BUILD_DIR&#125;</span>/<span class="variable">$&#123;INFOPLIST_PATH&#125;</span>"</span>`</div><div class="line"></div><div class="line"><span class="comment"># Check if we are under a Git or Hg repo</span></div><div class="line"><span class="keyword">if</span> [ <span class="_">-d</span> .git ] || git rev-parse --git-dir &gt; /dev/null 2&gt;&amp;1; <span class="keyword">then</span></div><div class="line">    commit=`git rev-parse --short HEAD`</div><div class="line">    branch=`git rev-parse --abbrev-ref HEAD`</div><div class="line"><span class="keyword">else</span></div><div class="line">    commit=`hg identify -i`</div><div class="line">    branch=`hg identify -b`</div><div class="line"><span class="keyword">fi</span>;</div><div class="line"></div><div class="line"><span class="comment">#SRCROOT=..</span></div><div class="line"><span class="comment">#CONFIGURATION_BUILD_DIR=.</span></div><div class="line"><span class="comment">#UNLOCALIZED_RESOURCES_FOLDER_PATH=.</span></div><div class="line"></div><div class="line"><span class="comment">#commit="3783bab"</span></div><div class="line"><span class="comment">#branch="master"</span></div><div class="line"><span class="comment">#version="3.4"</span></div><div class="line"><span class="comment">#build_num="9999"</span></div><div class="line"></div><div class="line"><span class="built_in">shopt</span> <span class="_">-s</span> extglob</div><div class="line">build_num=<span class="string">"<span class="variable">$&#123;build_num##*( )&#125;</span>"</span></div><div class="line"><span class="built_in">shopt</span> -u extglob</div><div class="line">caption=<span class="string">"<span class="variable">$&#123;version&#125;</span> (<span class="variable">$build_num</span>)\n<span class="variable">$&#123;branch&#125;</span>\n<span class="variable">$&#123;commit&#125;</span>"</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$caption</span></div><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">abspath</span></span>() &#123; &#125;</div><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">processIcon</span></span>() &#123;</div><div class="line">    base_file=<span class="variable">$1</span></div><div class="line"></div><div class="line">    <span class="built_in">cd</span> <span class="string">"<span class="variable">$&#123;CONFIGURATION_BUILD_DIR&#125;</span>/<span class="variable">$&#123;UNLOCALIZED_RESOURCES_FOLDER_PATH&#125;</span>"</span></div><div class="line">    base_path=`find . -name <span class="variable">$&#123;base_file&#125;</span>`</div><div class="line">    <span class="built_in">echo</span> <span class="string">"------base path <span class="variable">$&#123;base_path&#125;</span>"</span></div><div class="line">    real_path=$( abspath <span class="string">"<span class="variable">$&#123;base_path&#125;</span>"</span> )</div><div class="line">    <span class="built_in">echo</span> <span class="string">"base path <span class="variable">$&#123;real_path&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> [[ ! <span class="_">-f</span> <span class="variable">$&#123;base_path&#125;</span> || -z <span class="variable">$&#123;base_path&#125;</span> ]]; <span class="keyword">then</span></div><div class="line">      <span class="built_in">return</span>;</div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="comment"># <span class="doctag">TODO:</span> if they are the same we need to fix it by introducing temp</span></div><div class="line">    target_file=`basename <span class="variable">$base_path</span>`</div><div class="line">    target_path=<span class="string">"<span class="variable">$&#123;CONFIGURATION_BUILD_DIR&#125;</span>/<span class="variable">$&#123;UNLOCALIZED_RESOURCES_FOLDER_PATH&#125;</span>/<span class="variable">$&#123;target_file&#125;</span>"</span></div><div class="line"></div><div class="line">    base_tmp_normalizedFileName=<span class="string">"<span class="variable">$&#123;base_file%.*&#125;</span>-normalized.<span class="variable">$&#123;base_file##*.&#125;</span>"</span></div><div class="line">    base_tmp_path=`dirname <span class="variable">$base_path</span>`</div><div class="line">    base_tmp_normalizedFilePath=<span class="string">"<span class="variable">$&#123;base_tmp_path&#125;</span>/<span class="variable">$&#123;base_tmp_normalizedFileName&#125;</span>"</span></div><div class="line"></div><div class="line">    stored_original_file=<span class="string">"<span class="variable">$&#123;base_tmp_normalizedFilePath&#125;</span>-tmp"</span></div><div class="line">    <span class="keyword">if</span> [[ <span class="_">-f</span> <span class="variable">$&#123;stored_original_file&#125;</span> ]]; <span class="keyword">then</span></div><div class="line">      <span class="built_in">echo</span> <span class="string">"found previous file at path <span class="variable">$&#123;stored_original_file&#125;</span>, using it as base"</span></div><div class="line">      mv <span class="string">"<span class="variable">$&#123;stored_original_file&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;base_path&#125;</span>"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$CONFIGURATION</span> = <span class="string">"Release"</span> ]; <span class="keyword">then</span></div><div class="line">      cp <span class="string">"<span class="variable">$&#123;base_path&#125;</span>"</span> <span class="string">"<span class="variable">$target_path</span>"</span></div><div class="line">      <span class="built_in">return</span> 0;</div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="built_in">echo</span> <span class="string">"Reverting optimized PNG to normal"</span></div><div class="line">    <span class="comment"># Normalize</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"xcrun -sdk iphoneos pngcrush -revert-iphone-optimizations -q <span class="variable">$&#123;base_path&#125;</span> <span class="variable">$&#123;base_tmp_normalizedFilePath&#125;</span>"</span></div><div class="line">    xcrun -sdk iphoneos pngcrush -revert-iphone-optimizations -q <span class="string">"<span class="variable">$&#123;base_path&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;base_tmp_normalizedFilePath&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="comment"># move original pngcrush png to tmp file</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"moving pngcrushed png file at <span class="variable">$&#123;base_path&#125;</span> to <span class="variable">$&#123;stored_original_file&#125;</span>"</span></div><div class="line">    <span class="comment">#rm "$base_path"</span></div><div class="line">    mv <span class="string">"<span class="variable">$base_path</span>"</span> <span class="string">"<span class="variable">$&#123;stored_original_file&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="comment"># Rename normalized png's filename to original one</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"Moving normalized png file to original one <span class="variable">$&#123;base_tmp_normalizedFilePath&#125;</span> to <span class="variable">$&#123;base_path&#125;</span>"</span></div><div class="line">    mv <span class="string">"<span class="variable">$&#123;base_tmp_normalizedFilePath&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;base_path&#125;</span>"</span></div><div class="line"></div><div class="line">    width=`identify -format %w <span class="variable">$&#123;base_path&#125;</span>`</div><div class="line">    height=`identify -format %h <span class="variable">$&#123;base_path&#125;</span>`</div><div class="line">    band_height=$(((<span class="variable">$height</span> * 47) / 100))</div><div class="line">    band_position=$((<span class="variable">$height</span> - <span class="variable">$band_height</span>))</div><div class="line">    text_position=$((<span class="variable">$band_position</span> - 3))</div><div class="line">    point_size=$(((13 * <span class="variable">$width</span>) / 100))</div><div class="line"></div><div class="line">    <span class="built_in">echo</span> <span class="string">"Image dimensions (<span class="variable">$width</span> x <span class="variable">$height</span>) - band height <span class="variable">$band_height</span> @ <span class="variable">$band_position</span> - point size <span class="variable">$point_size</span>"</span></div><div class="line"></div><div class="line">    <span class="comment">#</span></div><div class="line">    <span class="comment"># blur band and text</span></div><div class="line">    <span class="comment">#</span></div><div class="line">    convert <span class="variable">$&#123;base_path&#125;</span> -blur 10x8 /tmp/blurred.png</div><div class="line">    convert /tmp/blurred.png -gamma 0 -fill white -draw <span class="string">"rectangle 0,<span class="variable">$band_position</span>,<span class="variable">$width</span>,<span class="variable">$height</span>"</span> /tmp/mask.png</div><div class="line">    convert -size <span class="variable">$&#123;width&#125;</span>x<span class="variable">$&#123;band_height&#125;</span> xc:none -fill <span class="string">'rgba(0,0,0,0.2)'</span> -draw <span class="string">"rectangle 0,0,<span class="variable">$width</span>,<span class="variable">$band_height</span>"</span> /tmp/labels-base.png</div><div class="line">    convert -background none -size <span class="variable">$&#123;width&#125;</span>x<span class="variable">$&#123;band_height&#125;</span> -pointsize <span class="variable">$point_size</span> -fill white -gravity center -gravity South caption:<span class="string">"<span class="variable">$caption</span>"</span> /tmp/labels.png</div><div class="line"></div><div class="line">    convert <span class="variable">$&#123;base_path&#125;</span> /tmp/blurred.png /tmp/mask.png -composite /tmp/temp.png</div><div class="line"></div><div class="line">    rm /tmp/blurred.png</div><div class="line">    rm /tmp/mask.png</div><div class="line"></div><div class="line">    <span class="comment">#</span></div><div class="line">    <span class="comment"># compose final image</span></div><div class="line">    <span class="comment">#</span></div><div class="line">    filename=New<span class="variable">$&#123;base_file&#125;</span></div><div class="line">    convert /tmp/temp.png /tmp/labels-base.png -geometry +0+<span class="variable">$band_position</span> -composite /tmp/labels.png -geometry +0+<span class="variable">$text_position</span> -geometry +<span class="variable">$&#123;w&#125;</span>-<span class="variable">$&#123;h&#125;</span> -composite <span class="string">"<span class="variable">$&#123;target_path&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="comment"># clean up</span></div><div class="line">    rm /tmp/temp.png</div><div class="line">    rm /tmp/labels-base.png</div><div class="line">    rm /tmp/labels.png</div><div class="line"></div><div class="line">    <span class="built_in">echo</span> <span class="string">"Overlayed <span class="variable">$&#123;target_path&#125;</span>"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">icon_count=`/usr/libexec/PlistBuddy -c <span class="string">"Print CFBundleIcons~ipad:CFBundlePrimaryIcon:CFBundleIconFiles"</span> <span class="string">"<span class="variable">$&#123;CONFIGURATION_BUILD_DIR&#125;</span>/<span class="variable">$&#123;INFOPLIST_PATH&#125;</span>"</span> | wc <span class="_">-l</span>`</div><div class="line">last_icon_index=$((<span class="variable">$&#123;icon_count&#125;</span> - 2))</div><div class="line"></div><div class="line">i=0</div><div class="line"><span class="keyword">while</span> [  <span class="variable">$i</span> <span class="_">-lt</span> <span class="variable">$last_icon_index</span> ]; <span class="keyword">do</span></div><div class="line">  icon=`/usr/libexec/PlistBuddy -c <span class="string">"Print CFBundleIcons~ipad:CFBundlePrimaryIcon:CFBundleIconFiles:<span class="variable">$i</span>"</span> <span class="string">"<span class="variable">$&#123;CONFIGURATION_BUILD_DIR&#125;</span>/<span class="variable">$&#123;INFOPLIST_PATH&#125;</span>"</span>`</div><div class="line">  <span class="built_in">echo</span> <span class="variable">$icon</span></div><div class="line">  <span class="built_in">echo</span> <span class="string">"wangxin"</span></div><div class="line">  <span class="keyword">if</span> [[ <span class="variable">$icon</span> == *.png ]] || [[ <span class="variable">$icon</span> == *.PNG ]]</div><div class="line">  <span class="keyword">then</span></div><div class="line">    processIcon <span class="variable">$icon</span></div><div class="line">  <span class="keyword">else</span></div><div class="line">    processIcon <span class="string">"<span class="variable">$&#123;icon&#125;</span>.png"</span></div><div class="line">    processIcon <span class="string">"<span class="variable">$&#123;icon&#125;</span>@2x.png"</span></div><div class="line">    processIcon <span class="string">"<span class="variable">$&#123;icon&#125;</span>@3x.png"</span></div><div class="line"></div><div class="line">    processIcon <span class="string">"<span class="variable">$&#123;icon&#125;</span>~ipad.png"</span></div><div class="line">    processIcon <span class="string">"<span class="variable">$&#123;icon&#125;</span>@2x~ipad.png"</span></div><div class="line">  <span class="keyword">fi</span></div><div class="line">  <span class="built_in">let</span> i=i+1</div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line"><span class="comment"># Workaround to fix issue#16 to use wildcard * to actually find the file</span></div><div class="line"><span class="comment"># Only 72x72 and 76x76 that we need for ipad app icons</span></div><div class="line"><span class="comment">#processIcon "AppIcon72x72~ipad*"</span></div><div class="line"><span class="comment">#processIcon "AppIcon72x72@2x~ipad*"</span></div><div class="line"><span class="comment">#processIcon "AppIcon76x76~ipad*"</span></div><div class="line"><span class="comment">#processIcon "AppIcon76x76@2x~ipad*"</span></div></pre></td></tr></table></figure>
 
+      
+    </div>
+
+    <div>
+      
         
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
 
-    <div class="jiathis_style">
-    <span class="jiathis_txt">分享到：</span>
-    <a class="jiathis_button_qzone">QQ空间</a>
-    <a class="jiathis_button_tsina">新浪微博</a>
-    <a class="jiathis_button_tqq">腾讯微博</a>
-    <a class="jiathis_button_weixin">微信</a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-    <a class="jiathis_counter_style"></a>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
 </div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
 <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<style>
-    .jiathis_style div:first-child:not(.jiadiv_01) {
-        width: auto !important;
-        border: none !important;
-    }
-    .jiathis_style .jiadiv_01 {
-        margin: 10px 0;
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .jiathis_style .jiadiv_01 div:first-child {
-        display: none;
-    }
-    .jiathis_style .jiadiv_02 {
-        padding: 7px 0 !important;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle {
-        width: 85px;
-        border: none;
-        height: auto;
-        margin: 3px 10px;
-        padding: 6px 10px;
-        border-radius: 4px;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:hover {
-        border: none;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
-        margin-left: 0;
-    }
-    .jiathis_style .jtico:hover {
-        opacity: 1;
-    }
-    .jiathis_style .ckepopBottom,
-    .jiathis_style .centerBottom {
-        width: auto !important;
-        padding: 5px;
-        background: #f7f7f7;
-    }
-</style>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
 
 
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/21/如何在iOS-App的图标上显示版本信息/"
+           data-title="如何在iOS App的图标上显示版本信息" data-url="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/">
+      </div>
+    
+  </div>
 
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xtbg5.com2.z0.glb.clouddn.com/avatar_small.jpg"
+               alt="wang xin" />
+          <p class="site-author-name" itemprop="name">wang xin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sybz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/wang-xin-97-55" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://music.163.com/#/user/home?id=34885652" target="_blank" title="163Music">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  163Music
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4F5C_u7528"><span class="nav-number">1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6765_u6E90"><span class="nav-number">2.</span> <span class="nav-text">来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6548_u679C"><span class="nav-number">3.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B9E_u73B0"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-__u4F7F_u7528PlistBuddy_u5DE5_u5177_uFF0C_u83B7_u53D6version_2Cbuild_u4FE1_u606F"><span class="nav-number">4.1.</span> <span class="nav-text">1. 使用PlistBuddy工具，获取version,build信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_git_u547D_u4EE4_u83B7_u53D6_u5206_u652F_u4FE1_u606F_u548Ccommit_id"><span class="nav-number">4.2.</span> <span class="nav-text">2. git命令获取分支信息和commit id</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_u4F7F_u7528ImageMagick_u5C06_u7248_u672C_u4FE1_u606F_u586B_u5145_u5230_u56FE_u6807_u4E0A"><span class="nav-number">4.3.</span> <span class="nav-text">3.使用ImageMagick将版本信息填充到图标上</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5982_u4F55_u6574_u5408_u8FDBXcode_uFF0C_u5B9E_u73B0_u7F16_u8BD1_u7684_u65F6_u5019_u52A8_u6001_u4FEE_u6539icon"><span class="nav-number">5.</span> <span class="nav-text">如何整合进Xcode，实现编译的时候动态修改icon</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wang xin</span>
 </div>
 
-            
-    
-        <a href="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/">评论</a>
-    
 
-        </footer>
-    </div>
-    
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
         
 
-    
-</article>
-
-
-    
-    <section id="comments">
-    
         
-    <div class="ds-thread" data-thread-key="2017/02/21/如何在iOS-App的图标上显示版本信息/" data-title="如何在iOS App的图标上显示版本信息" data-url="http://www.sybzrw.com/2017/02/21/如何在iOS-App的图标上显示版本信息/"></div>
-    <style>
-        #ds-thread #ds-reset .ds-textarea-wrapper {
-            background: none;
-        }
-        #ds-reset .ds-avatar img {
-            box-shadow: none;
-        }
-        #ds-reset .ds-gradient-bg {
-            background: #f7f7f7;
-        }
-        #ds-thread #ds-reset li.ds-tab a {
-            border-radius: 3px;
-        }
-        #ds-thread #ds-reset .ds-post-button {
-            color: white;
-            border: none;
-            box-shadow: none;
-            background: #d32;
-            text-shadow: none;
-            font-weight: normal;
-            font-family: 'Microsoft Yahei';
-        }
-        #ds-thread #ds-reset .ds-post-button:hover {
-            color: white;
-            background: #DE594C;
-        }
-        #ds-thread #ds-reset .ds-post-button:active {
-            background: #d32;
-        }
-        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
-            color: white;
-            background: #d32;
-            box-shadow: none;
-            text-shadow: none;
-            font-weight: normal;
-        }
-    </style>
+      </div>
+    </footer>
 
     
-    </section>
-
-</section>
-            
-                <aside id="sidebar">
-   
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
         
-    <div class="widget-wrap">
-        <h3 class="widget-title">最新文章</h3>
-        <div class="widget">
-            <ul id="recent-post" class="">
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/02/21/如何在iOS-App的图标上显示版本信息/" class="thumbnail">
+      </div>
     
     
-        <span style="background-image:url(http://7xtbg5.com2.z0.glb.clouddn.com/backlight%20shooting_0_small.jpg)" alt="如何在iOS App的图标上显示版本信息" class="thumbnail-image"></span>
-    
-</a>
+  </div>
 
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/02/21/如何在iOS-App的图标上显示版本信息/" class="title">如何在iOS App的图标上显示版本信息</a></p>
-                            <p class="item-date"><time datetime="2017-02-21T13:13:32.000Z" itemprop="datePublished">2017-02-21</time></p>
-                        </div>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
+  
 
-    
-        
-    
-        
-    <div class="widget-wrap">
-        <h3 class="widget-title">归档</h3>
-        <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li></ul>
-        </div>
-    </div>
-
-    
-        
-    <div class="widget-wrap">
-        <h3 class="widget-title">标签</h3>
-        <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">1</span></li></ul>
-        </div>
-    </div>
-
-    
-        
-    <div class="widget-wrap">
-        <h3 class="widget-title">标签云</h3>
-        <div class="widget tagcloud">
-            <a href="/tags/iOS/" style="font-size: 10px;">iOS</a>
-        </div>
-    </div>
-
-    
-        
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">链接</h3>
-        <div class="widget">
-            <ul>
-                
-                    <li>
-                        <a href="http://hexo.io">Hexo</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
 
 
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
     
-    <div id="toTop" class="fa fa-angle-up"></div>
-</aside>
-            
-        </div>
-        <footer id="footer">
-    <div class="outer">
-        <div id="footer-info" class="inner">
-            &copy; 2017 wang xin<br>
-            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
-        </div>
-    </div>
-</footer>
-        
-    
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:'sybzrw'};
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"sybzrw"};
     (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0]
-    || document.getElementsByTagName('body')[0]).appendChild(ds);
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
     })();
-    </script>
+  </script>
 
-
-
+  
     
-        <script src="/vendor/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
     
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
 
 
-<!-- Custom Scripts -->
-<script src="/js/main.js" type="text/javascript"></script>
 
-    </div>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
 </body>
 </html>
